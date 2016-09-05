@@ -10,6 +10,7 @@ gem 'puma', '~> 3.0'
 
 gem 'rest-client'
 gem 'hashie'
+gem 'bindata'
 
 group :development, :test do
   gem 'byebug'
