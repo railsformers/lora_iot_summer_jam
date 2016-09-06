@@ -1,0 +1,8 @@
+test:
+  database: lora_test
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  host: postgres
+  username: postgres
+  password:
