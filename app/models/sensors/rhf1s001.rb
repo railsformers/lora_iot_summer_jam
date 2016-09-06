@@ -7,10 +7,27 @@ module Sensors
     # end
 
     def temperature
-      ((value.temperature*175.72)/(2**16))-46.85
+      (((value.temperature*175.72)/(2**16))-46.85).round(2)
     end
 
     def humidity
+      (((125.0*value.humidity)/2**8)-6.0).round
+    end
+
+    def period
+      2.0*value.period
+    end
+
+    def rssi
+      -180.0+value.rssi
+    end
+
+    def snr
+      value.snr/4.0
+    end
+
+    def battery_level
+      (value.battery+150)*0.01
     end
   end
 end

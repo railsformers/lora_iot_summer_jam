@@ -20,6 +20,7 @@ group :development, :test do
   gem 'database_cleaner'
   gem 'shoulda-matchers'
   gem 'shoulda-callback-matchers'
+  gem 'mina'
 end
 
 group :development do
