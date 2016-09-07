@@ -19,7 +19,7 @@ module Sensors
     end
 
     def value
-      value ||= formatter.read(payloadHexa)
+      @value ||= formatter.read(payloadHexa)
     end
   end
 end

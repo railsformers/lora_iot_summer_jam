@@ -1,0 +1,24 @@
+!!!
+%html
+  %head
+    %title Lora
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all'
+    = javascript_include_tag 'application'
+
+  %body
+    %nav.navbar.navbar-inverse.navbar-fixed-top
+      .container
+        .navbar-header
+          %button.navbar-toggle.collapsed(type="button" class="" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          = link_to 'Lora', root_path, class: 'navbar-brand'
+        #navbar.collapse.navbar-collapse
+          %ul.nav.navbar-nav
+            %li= link_to "Projects", projects_path
+
+    .container
+      = yield

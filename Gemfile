@@ -12,6 +12,12 @@ gem 'rest-client'
 gem 'hashie'
 gem 'bindata'
 
+gem 'turbolinks', '~> 5.0.0'
+gem 'jquery-rails'
+gem 'haml'
+gem 'responders'
+gem 'bootstrap', '~> 4.0.0.alpha3'
+
 group :development, :test do
   gem 'byebug'
   gem 'factory_girl'

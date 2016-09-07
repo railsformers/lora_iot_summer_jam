@@ -1,5 +1,6 @@
 class BaseREST < ::Hashie::Mash
   include Hashie::Extensions::Mash::SafeAssignment
+  include ActiveModel::Conversion
 
   class << self
     attr_accessor :id, :response, :data
