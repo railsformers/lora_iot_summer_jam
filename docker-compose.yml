@@ -1,0 +1,34 @@
+version: "2"
+services:
+  portal:
+    container_name: lora
+    stdin_open: true
+    tty: true
+
+    build: .
+    command: bundle exec rails s -p 3000 -b '0.0.0.0'
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - POSTGRES_PORT=5432
+      - POSTGRES_USER=postgres
+      - POSTGRES_HOST=postgres
+      - POSTGRES_PASSWORD=postgres
+      - RBENV_VERSION=2.3.1
+    links:
+      - postgres
+      - redis
+
+  postgres:
+    container_name: lora_postgres
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_PASSWORD=postgres
+  redis:
+    container_name: lora_redis
+    image: redis
+
