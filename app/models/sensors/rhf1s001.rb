@@ -6,6 +6,8 @@ module Sensors
     #   # "016c689d39309029c8".gsub(/../) { |pair| pair.hex.chr }.unpack("B8vCvS<CC")
     # end
 
+    attributes :temperature, :humidity, :period, :rssi, :snr, :battery_level
+
     def temperature
       (((value.temperature*175.72)/(2**16))-46.85).round(2)
     end

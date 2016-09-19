@@ -21,5 +21,22 @@ module Sensors
     def value
       @value ||= formatter.read(payloadHexa)
     end
+    alias_method :values, :value
+
+    def self.attributes(*attrs)
+      @@attributes = attrs
+    end
+
+    def attributes
+      out = {}
+
+      @@attributes.each do |a|
+        if respond_to?(a)
+	        out[a] = send(a)
+	      end
+      end
+
+      out
+    end
   end
 end
