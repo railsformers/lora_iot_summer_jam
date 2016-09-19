@@ -1,0 +1,6 @@
+%tr
+  %td= device.devEUI
+  %td= device.description
+  %td= device.model
+  %td= device.vendor
+  %td= link_to "Messages", project_device_messages_path(device.projectId, device.devEUI)

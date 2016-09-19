@@ -1,0 +1,13 @@
+%h1 Messages
+
+.table-responsive
+  %table.table.table-hover.table-striped
+    %thead
+      %th CreatedAt
+      %th Data
+    %tbody
+      - @messages.each do |message|
+        = render partial: message
+- if @messages.empty?
+  .alert.alert-info
+    = t('.no_records')
