@@ -29,7 +29,9 @@ class BaseREST < ::Hashie::Mash
     end
 
     def all(params: {})
-      @response = RestClient.get(url_builder, params)
+      cache(url_builder, params) do
+      	@response = RestClient.get(url_builder, params)
+      end
       parse_response
     end
 
@@ -39,6 +41,8 @@ class BaseREST < ::Hashie::Mash
     end
     alias_method :find, :get
 
+    private
+
     def parse_response
       if @response.code == 200
         @data = JSON.parse(@response, symbolize_names: true)
@@ -47,6 +51,13 @@ class BaseREST < ::Hashie::Mash
       end
 
       nil
+    end
+
+
+    def cache(url, params, &block)
+      Rails.cache.fetch([url, params], expires: 1.hour) do
+        yield
+      end
     end
   end
 end
