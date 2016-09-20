@@ -29,8 +29,8 @@ class BaseREST < ::Hashie::Mash
     end
 
     def all(params: {})
-      cache(url_builder, params) do
-      	@response = RestClient.get(url_builder, params)
+      @response = cache(url_builder, params) do
+        RestClient.get(url_builder, params)
       end
       parse_response
     end
