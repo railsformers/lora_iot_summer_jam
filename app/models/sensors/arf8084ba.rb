@@ -2,7 +2,13 @@ module Sensors
   class Arf8084ba < Sensors::Base
     attributes :temperature, :latitude, :longitude
 
+    def payloadHexa
+      message.payloadHex.scan(/../).map { |x| x.hex.chr }.join
+      #message.payloadHex.scan(/../).map { |x| x.hex }.pack("c*")
+    end
+
     def temperature
+      values.temperature if values.is_temp
     end
 
     def latitude
@@ -12,10 +18,16 @@ module Sensors
       lat_min += (values.lat_thousandths_minutes / 1000.0)
       lat_min /= 60.0
       lat += lat_min
-      byebug
+      lat.round(6)
     end
 
     def longitude
+      lng = (100 * values.lng_hundreds_degrees) + (10 * values.lng_tens_degrees) + values.lng_units_degrees
+      lng_min = (10 * values.lng_tens_minutes) + values.lng_units_minutes
+      lng_min += (values.lng_tenths_minutes / 10.0) + (values.lng_hundredths_minutes / 100.0)
+      lng_min /= 60.0
+      lng += lng_min
+      lng.round(6)
     end
   end
 end

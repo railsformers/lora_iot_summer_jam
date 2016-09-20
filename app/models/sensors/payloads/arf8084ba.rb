@@ -12,27 +12,31 @@ module Sensors
       bit1 :is_batt
       bit1 :is_rssi
 
-      uint8 :temperature
-      bit4 :lat_tens_degrees
-      bit4 :lat_units_degrees
-      bit4 :lat_tens_minutes
-      bit4 :lat_units_minutes
-      bit4 :lat_tenths_minutes
-      bit4 :lat_hundredths_minutes
-      bit4 :lat_thousandths_minutes
-      bit3 :unused1
-      bit1 :lat_hemisphere
-      #uint8 :lat_minutes1
-      #uint8 :lat_minutes2
-      #uint8 :lat_minutes3
-      #uint32 :latitude
-      #uint32 :longitude
-      #uint8 :uplink
-      #uint8 :downlink
-      #uint8 :msb_battery
-      #uint8 :lsb_battery
-      #uint8 :rssi
-      #uint8 :snr
+      uint8 :temperature, onlyif: :is_temp
+      bit4 :lat_tens_degrees, onlyif: :is_gps
+      bit4 :lat_units_degrees, onlyif: :is_gps
+      bit4 :lat_tens_minutes, onlyif: :is_gps
+      bit4 :lat_units_minutes, onlyif: :is_gps
+      bit4 :lat_tenths_minutes, onlyif: :is_gps
+      bit4 :lat_hundredths_minutes, onlyif: :is_gps
+      bit4 :lat_thousandths_minutes, onlyif: :is_gps
+      bit3 :unused1, onlyif: :is_gps
+      bit1 :lat_hemisphere, onlyif: :is_gps
+      bit4 :lng_hundreds_degrees, onlyif: :is_gps
+      bit4 :lng_tens_degrees, onlyif: :is_gps
+      bit4 :lng_units_degrees, onlyif: :is_gps
+      bit4 :lng_tens_minutes, onlyif: :is_gps
+      bit4 :lng_units_minutes, onlyif: :is_gps
+      bit4 :lng_tenths_minutes, onlyif: :is_gps
+      bit4 :lng_hundredths_minutes, onlyif: :is_gps
+      bit3 :unused2, onlyif: :is_gps
+      bit1 :lng_hemisphere, onlyif: :is_gps
+      uint8 :uplink, onlyif: :is_up
+      uint8 :downlink, onlyif: :is_down
+      #uint8 :msb_battery, onlyif: :is_batt
+      #uint8 :lsb_battery, onlyif: :is_batt
+      #uint8 :rssi, onlyif: :is_rssi
+      #uint8 :snr, onlyif: :is_rssi
     end
   end
 end

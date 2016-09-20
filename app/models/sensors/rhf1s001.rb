@@ -8,6 +8,10 @@ module Sensors
 
     attributes :temperature, :humidity, :period, :rssi, :snr, :battery_level
 
+    def payloadHexa
+      message.payloadHex.gsub(/../) { |pair| pair.hex.chr }
+    end
+
     def temperature
       (((value.temperature*175.72)/(2**16))-46.85).round(2)
     end

@@ -15,11 +15,11 @@ module Sensors
     end
 
     def payloadHexa
-      message.payloadHex.gsub(/../) { |pair| pair.hex.chr }
+      message.payloadHex
     end
 
     def value
-      @value ||= formatter.read(payloadHexa)
+      @value ||= formatter.read(payloadHexa) if formatter
     end
     alias_method :values, :value
 
@@ -32,8 +32,8 @@ module Sensors
 
       @@attributes.each do |a|
         if respond_to?(a)
-	        out[a] = send(a)
-	      end
+          out[a] = send(a)
+        end
       end
 
       out
