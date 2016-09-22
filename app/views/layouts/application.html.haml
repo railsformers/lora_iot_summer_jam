@@ -7,18 +7,12 @@
     = javascript_include_tag 'application'
 
   %body
-    %nav.navbar.navbar-inverse.navbar-fixed-top
-      .container
-        .navbar-header
-          %button.navbar-toggle.collapsed(type="button" class="" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
-            %span.sr-only Toggle navigation
-            %span.icon-bar
-            %span.icon-bar
-            %span.icon-bar
-          = link_to 'Lora', root_path, class: 'navbar-brand'
-        #navbar.collapse.navbar-collapse
-          %ul.nav.navbar-nav
-            %li= link_to "Projects", projects_path
-
     .container
+      %nav.navbar.navbar-light.bg-faded
+        %button.navbar-toggler.hidden-sm-up(type="button" data-toggle="collapse" data-target="#navbar-header" aria-controls="navbar-header") &#9776;
+        #navbar-header.collapse.navbar-toggleable-xs
+          = link_to 'Lora', root_path, class: 'navbar-brand'
+          %ul.nav.navbar-nav
+            %li.nav-item= link_to "Projects", projects_path, class: 'nav-link'
+
       = yield

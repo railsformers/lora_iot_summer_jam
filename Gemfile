@@ -17,6 +17,7 @@ gem 'jquery-rails'
 gem 'haml'
 gem 'responders'
 gem 'bootstrap', '~> 4.0.0.alpha3'
+gem 'tether-rails'
 
 group :development, :test do
   gem 'byebug'
