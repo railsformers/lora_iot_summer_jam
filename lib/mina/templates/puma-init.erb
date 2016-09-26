@@ -1,0 +1,21 @@
+#! /bin/bash
+
+### BEGIN INIT INFO
+# Provides:          puma
+# Required-Start:    $all
+# Required-Stop:     $network $local_fs $syslog
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: starts the puma web server
+# Description:       starts puma web server
+### END INIT INFO
+
+# Change these to match your app:
+USER=<%= puma_user || user! %>
+APP_NAME=<%= "#{application!}#{suffix}" %>
+APP_PATH=<%= deploy_to! %>
+ENV=<%= rails_env! %>
+WORKERS=<%= puma_workers || 2 %>
+LISTEN='<%= puma_listen || "unix://#{deploy_to!}/puma.sock" %>'
+
+source /usr/local/lib/pumactl $1

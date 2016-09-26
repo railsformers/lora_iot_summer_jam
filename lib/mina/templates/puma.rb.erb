@@ -12,13 +12,13 @@ workers Integer(ENV["WORKERS"] || 2)
 
 prune_bundler
 
-tag ENV['APP_NAME'] unless ENV['APP_NAME'].empty?
+tag ENV['APP_NAME'] unless ENV['APP_NAME'].nil?
 
 worker_timeout 120
 
 on_worker_boot do |wpid|
-  File.open("../../puma-worker.#{wpid}.pid", "w") do |f|
-    f.puts Process.pid
-    f.close
-  end
+File.open("../../puma-worker.#{wpid}.pid", "w") do |f|
+f.puts Process.pid
+f.close
+end
 end

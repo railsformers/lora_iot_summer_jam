@@ -1,0 +1,7 @@
+<%= rails_env %>:
+  adapter: <%= db_adapter || 'mysql2' %>
+  encoding: <%= db_encoding || 'utf8' %>
+  database: <%= db_name || "#{application}_#{rails_env}" %>
+  username: <%= db_user || "#{application}" %>
+  password: <%= db_password %>
+  pool: <%= db_pool %>

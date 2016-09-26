@@ -1,0 +1,78 @@
+upstream puma_<%= "#{application!}#{suffix}" %> {
+  server unix://<%= deploy_to! %>/puma.sock;
+}
+
+server {
+  listen <%= nginx_vhost_listen_ip %>:80;
+  server_name <%= nginx_vhost_domain! %>;
+  include /etc/nginx/snippets/letsencrypt-acme-challenge.conf;
+  location / {
+    #rewrite all nonssl request to ssl
+    return 301 https://<%= nginx_vhost_domain! %>$request_uri$is_args$args;
+  }
+}
+
+server {
+  listen <%= nginx_vhost_listen_ip %>:443;
+  server_name <%= nginx_vhost_domain %>;
+
+  include /etc/nginx/snippets/letsencrypt-acme-challenge.conf;
+
+  root <%= "#{deploy_to}/current/public" %>;
+  client_max_body_size 500M;
+  keepalive_timeout 10;
+  access_log <%= "#{deploy_to}/shared/log/access.log" %>;
+  error_log <%= "#{deploy_to}/shared/log/error.log" %>;
+
+  <% if nginx_vhost_force_domain %>
+    if ($host !~* ^<%= nginx_vhost_force_domain %>$) {
+    rewrite ^(.*) $scheme://<%= nginx_vhost_force_domain %>$1 permanent;
+    }
+  <% end %>
+
+  ssl on;
+  ssl_certificate /etc/nginx/certs/cccd.railsformers.com/fullchain.pem;
+  ssl_certificate_key /etc/nginx/certs/cccd.railsformers.com/key.pem;
+
+  # this allows people to use images and css in their maintenance.html file
+  if ($request_filename ~* \.(css|jpg|gif|png)$) {
+    break;
+  }
+  # rewrite all the requests to the maintenance.html page if it exists
+  if (-f $document_root/system/maintenance.html) {
+    return 503;
+  }
+
+  location ^~ /assets/ {
+    gzip_static on;
+    expires 1y;
+    add_header Cache-Control public;
+    add_header ETag "";
+    break;
+  }
+  location ~ ^/uploads/  {
+    root <%= "#{deploy_to}/current/public" %>;
+    gzip_static on;
+    expires 1y;
+    add_header Cache-Control public;
+    add_header ETag "";
+    break;
+  }
+
+  try_files $uri/index.html $uri @appserver;
+  location @appserver {
+    proxy_read_timeout <%= nginx_proxy_read_timeout || 60 %>;
+    proxy_set_header Host $http_host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_redirect off;
+    proxy_pass http://puma_<%= "#{application!}#{suffix}" %>;
+  }
+
+  error_page 500 502 504 /500.html;
+  error_page 503 @503;
+  location @503 {
+    rewrite ^(.*)$ /system/maintenance.html break;
+  }
+}
