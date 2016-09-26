@@ -16,4 +16,10 @@ describe Sensors::Dth do
 
     it { expect(subject).to eq 60.30 }
   end
+
+  describe ".battery_voltage" do
+    subject { sensor.battery_voltage }
+
+    it { expect(subject).to eq 3203 }
+  end
 end
