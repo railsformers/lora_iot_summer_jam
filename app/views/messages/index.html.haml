@@ -11,3 +11,5 @@
 - if @messages.empty?
   .alert.alert-info
     = t('.no_records')
+
+= paginate @messages_array
