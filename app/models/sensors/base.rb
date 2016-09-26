@@ -2,6 +2,8 @@ module Sensors
   class Base
     attr_reader :message, :value
 
+    @@attributes = []
+
     class DefaultFormat < BinData::Record
       endian :little
     end
@@ -11,7 +13,7 @@ module Sensors
     end
 
     def formatter
-      "Sensors::Payloads::#{self.class.name.demodulize}".constantize || DefaultFormat
+      "Sensors::Payloads::#{self.class.name.demodulize}".safe_constantize || DefaultFormat
     end
 
     def payloadHexa
@@ -24,13 +26,13 @@ module Sensors
     alias_method :values, :value
 
     def self.attributes(*attrs)
-      @@attributes = attrs
+      @@attributes += attrs
     end
 
     def attributes
       out = {}
 
-      @@attributes.each do |a|
+      @@attributes.uniq.each do |a|
         if respond_to?(a)
           out[a] = send(a)
         end

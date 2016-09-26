@@ -1,14 +1,18 @@
 class Message < BaseREST
+  cache_expires 1.minute
+
   def data
+    return "Parser not implemented" unless sensor_class
+
     begin
-      sensor.attributes.inspect if sensor
+      sensor.attributes.inspect
     rescue EOFError => err
       return {}
     end
   end
 
   def sensor_class
-    "Sensors::#{device.model.downcase.capitalize}".constantize if device
+    "Sensors::#{device.model.downcase.capitalize}".safe_constantize if device
   end
 
   def sensor
