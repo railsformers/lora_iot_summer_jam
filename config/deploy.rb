@@ -31,7 +31,7 @@ set :rails_env, 'staging'
 
 set :port, 2222
 
-set :domain, rails_env!.start_with?('staging') ? 'lora.staging.railsformers.com' : 'lora.railsformers.com'
+set :domain, rails_env!.start_with?('staging') ? 'staging' : 'lora.railsformers.com'
 
 set :shared_paths, %w(
   config/database.yml
@@ -40,8 +40,10 @@ set :shared_paths, %w(
   tmp
 )
 
-set :db_pool, 10
-set :db_user, application![0..15]
+set :db_adapter, 'postgresql'
+set :db_enc, 'unicode'
+set :db_pool, 5
+set :db_user, 'lora'
 set :db_password, 'KashuxcyzKodnog'
 set :db_name, "#{application}#{env_suffix}"
 

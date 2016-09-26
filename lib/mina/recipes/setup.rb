@@ -58,7 +58,7 @@ end
 task :setup_database do
   queue  %[echo "-----> Setting up database.."]
 
-  db_adapter ||= "mysql2"
+  #db_adapter ||= "mysql2"
 
   unless db_adapter.start_with?('mysql')
     print_error("Task 'setup_database' is usable ONLY WITH MYSQL! You must prepare database and user permissions manually or prepare new recipe.")
