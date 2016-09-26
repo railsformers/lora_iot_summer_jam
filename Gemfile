@@ -19,13 +19,10 @@ gem 'responders'
 gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'tether-rails'
 gem 'kaminari', github: "amatsuda/kaminari", branch: '0-17-stable'
-
-group :assets do
-  gem 'therubyracer'
-  gem 'sass-rails'
-  gem 'coffee-rails'
-  gem 'uglifier'
-end
+gem 'therubyracer'
+gem 'sass-rails'
+gem 'coffee-rails'
+gem 'uglifier'
 
 group :development, :test do
   gem 'byebug'
