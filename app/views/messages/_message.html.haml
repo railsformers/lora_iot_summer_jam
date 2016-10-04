@@ -1,3 +1,5 @@
 %tr
   %td= message.createdAt
-  %td= message.data
+  -# %td= message.data
+  - message.attributes.values.each do |value|
+    %td= value

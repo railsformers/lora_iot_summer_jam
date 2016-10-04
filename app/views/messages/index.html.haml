@@ -4,7 +4,10 @@
   %table.table.table-hover.table-striped
     %thead
       %th CreatedAt
-      %th Data
+      -#%th Data
+      - if @messages.first && @messages.first.attributes
+        - @messages.first.attributes.keys.each do |attribute|
+          %th= attribute
     %tbody
       - @messages.each do |message|
         = render partial: message
