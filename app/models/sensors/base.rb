@@ -21,7 +21,11 @@ module Sensors
     end
 
     def value
-      @value ||= formatter.read(payloadHexa) if formatter
+      @value ||= begin
+        formatter.read(payloadHexa) if formatter
+      rescue EOFError => e
+        formatter.read("\x00" * 30)
+      end
     end
     alias_method :values, :value
 
