@@ -1,4 +1,4 @@
-if ENV.fetch("RAILS_ENV") == "development" || ENV['RAILS_ENV'].empty?
+if ENV["RAILS_ENV"] == "development"
   # Puma can serve each request in a thread from an internal thread pool.
   # The `threads` method setting takes two numbers a minimum and maximum.
   # Any libraries that use thread pools should be configured to match
