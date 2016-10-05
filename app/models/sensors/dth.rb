@@ -1,6 +1,7 @@
 module Sensors
   class Dth < Base
     attributes :temperature, :humidity, :battery_voltage
+    display_as :line_chart, group_by: :minute, attributes: [:temperature, :humidity]
 
     def payloadHexa
       message.payloadHex.gsub(/../) { |pair| pair.hex.chr }

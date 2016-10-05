@@ -23,6 +23,8 @@ gem 'therubyracer'
 gem 'sass-rails'
 gem 'coffee-rails'
 gem 'uglifier'
+gem 'chartkick'
+gem 'groupdate'
 
 group :development, :test do
   gem 'byebug'

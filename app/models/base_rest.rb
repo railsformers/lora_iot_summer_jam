@@ -45,31 +45,31 @@ class BaseREST < ::Hashie::Mash
     end
 
     def offset(offset)
-      @offset ||= offset
+      @offset = offset
 
       self
     end
 
     def limit(limit)
-      @limit ||= limit
+      @limit = limit
 
       self
     end
 
     def order(order)
-      @order ||= order
+      @order = order
 
       self
     end
 
     def start(start)
-      @start ||= start
+      @start = start
 
       self
     end
 
     def stop(stop)
-      @stop ||= stop
+      @stop = stop
 
       self
     end
@@ -82,7 +82,7 @@ class BaseREST < ::Hashie::Mash
       print(url_builder)
       @response = cache(url_builder) do
         response = RestClient.get(url_builder, params)
-	      ::Hashie::Mash.new({ body: response.body, code: response.code, headers: response.headers })
+        ::Hashie::Mash.new({ body: response.body, code: response.code, headers: response.headers })
       end
       parse_response
     end

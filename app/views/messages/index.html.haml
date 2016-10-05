@@ -1,5 +1,9 @@
 %h1 Messages
 
+- if displays = @messages.try(:first).try(:display)
+  - displays.each do |type, settings|
+    = send(type, chart_data(@messages_chart, settings))
+
 .table-responsive
   %table.table.table-hover.table-striped
     %thead

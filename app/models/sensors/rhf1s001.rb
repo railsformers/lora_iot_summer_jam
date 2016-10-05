@@ -6,7 +6,8 @@ module Sensors
     #   # "016c689d39309029c8".gsub(/../) { |pair| pair.hex.chr }.unpack("B8vCvS<CC")
     # end
 
-    attributes :temperature, :humidity, :period, :rssi, :snr, :battery_level
+    attributes :temperature, :humidity, :battery_level
+    display_as :line_chart, group_by: :minute, attributes: [:temperature, :humidity, :battery_level]
 
     def payloadHexa
       message.payloadHex.gsub(/../) { |pair| pair.hex.chr }

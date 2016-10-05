@@ -1,6 +1,7 @@
 module Sensors
   class Desenselight < Base
     attributes :illuminance, :battery_voltage
+    display_as :line_chart, group_by: :minute, attributes: [:illuminance]
 
     def payloadHexa
       message.payloadHex.gsub(/../) { |pair| pair.hex.chr }

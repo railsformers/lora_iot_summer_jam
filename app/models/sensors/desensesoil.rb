@@ -1,6 +1,7 @@
 module Sensors
   class Desensesoil < Base
     attributes :soil_moisture, :battery_voltage
+    display_as :line_chart, group_by: :minute, attributes: [:soil_moisture]
 
     def payloadHexa
       message.payloadHex.gsub(/../) { |pair| pair.hex.chr }

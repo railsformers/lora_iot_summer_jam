@@ -2,6 +2,8 @@ module Sensors
   class S0 < Base
     attributes :impulse_cnt, :impulse_cnt1, :impulse_cnt2, :impulse_cnt3, :battery_voltage
 
+    display_as :line_chart, group_by: :minute, attributes: [:impulse_cnt, :impulse_cnt1, :impulse_cnt2, :impulse_cnt3, :battery_voltage]
+
     delegate :impulse_cnt, :impulse_cnt1, :impulse_cnt2, :impulse_cnt3, to: :values
 
     def payloadHexa

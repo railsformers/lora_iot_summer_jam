@@ -3,6 +3,7 @@ module Sensors
     attr_reader :message, :value
 
     @@attributes = []
+    @@display_as = {}
 
     class DefaultFormat < BinData::Record
       endian :little
@@ -33,8 +34,12 @@ module Sensors
       @@attributes += attrs
     end
 
+    def self.display_as(type, attrs)
+      @@display_as[type] = attrs
+    end
+
     def attributes
-      out = {}
+      out = Hashie::Mash.new
 
       @@attributes.uniq.each do |a|
         if respond_to?(a)
@@ -43,6 +48,10 @@ module Sensors
       end
 
       out
+    end
+
+    def display
+      @@display_as
     end
   end
 end
