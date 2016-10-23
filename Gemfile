@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.0.1'
 
 gem 'pg'
 
@@ -16,7 +16,7 @@ gem 'turbolinks', '~> 5.0.0'
 gem 'jquery-rails'
 gem 'haml'
 gem 'responders'
-gem 'bootstrap', '~> 4.0.0.alpha3'
+# gem 'bootstrap', '~> 4.0.0.alpha3'
 gem 'tether-rails'
 gem 'kaminari', github: "amatsuda/kaminari", branch: '0-17-stable'
 gem 'therubyracer'
@@ -25,6 +25,8 @@ gem 'coffee-rails'
 gem 'uglifier'
 gem 'chartkick'
 gem 'groupdate'
+gem 'bootstrap-sass', '~> 3.3.7'
+gem 'font-awesome-rails'
 
 group :development, :test do
   gem 'byebug'

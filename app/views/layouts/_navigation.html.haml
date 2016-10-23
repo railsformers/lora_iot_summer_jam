@@ -1,0 +1,16 @@
+%nav.navbar-default.navbar-static-side(role="navigation")
+  .sidebar-collapse
+    %ul.nav.metismenu#side-menu
+      %li.nav-header
+        .dropdown.profile-element
+          LORA
+        .logo-element LORA
+      %li(class="#{ 'active' if request.fullpath =~ /projects/ }")
+        %a(href="")
+          %i.fa.fa-th-large
+          %span.nav-label(data-i18n="nav.projects") Projects
+          %span.fa.arrow
+          %ul.nav.nav-second-level.collapse(class="#{ 'active' if request.fullpath =~ /projects/ }")
+            - Project.all.each do |project|
+              %li(class="#{ 'active' if request.fullpath =~ Regexp.new(project.projectId) }")
+                = link_to project.projectId, project_devices_path(project.projectId)
