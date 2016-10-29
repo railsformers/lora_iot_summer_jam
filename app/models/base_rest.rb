@@ -110,6 +110,14 @@ class BaseREST < ::Hashie::Mash
     alias_method :count, :result
     alias_method :empty?, :result
 
+    def model_name
+      self
+    end
+
+    def plural
+      model_name.to_s.pluralize
+    end
+
     private
 
     def parse_response
@@ -121,7 +129,6 @@ class BaseREST < ::Hashie::Mash
 
       nil
     end
-
 
     def cache(url, &block)
       Rails.cache.fetch(cache_key([url, params]), expires: @@cache_expires) do

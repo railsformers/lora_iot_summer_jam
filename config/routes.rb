@@ -7,7 +7,9 @@ Rails.application.routes.draw do
 
   resources :projects, only: [:index] do
     resources :devices, only: [:index] do
-      resources :messages, only: [:index], concerns: :paginatable
+      resources :messages, only: [:index], concerns: :paginatable do
+        get :chart, on: :collection
+      end
     end
   end
   root to: "projects#index"

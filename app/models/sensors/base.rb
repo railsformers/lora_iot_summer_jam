@@ -47,6 +47,10 @@ module Sensors
         end
       end
 
+      if @@attributes.empty?
+        out[:not_implemented] = "Not Implemented Sensor Parser"
+      end
+
       out
     end
 

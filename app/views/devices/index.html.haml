@@ -1,15 +1,30 @@
-%h1 Devices
+.row.wrapper.border-bottom.white-bg.page-heading
+  .col-lg-10
+    %h2= @project.description
+    %ol.breadcrumb
+      %li= link_to "Projects", projects_path
+      %li.active= link_to @project.projectId, project_devices_path(@project.projectId)
 
-.table-responsive
-  %table.table.table-hover.table-striped
-    %thead
-      %th DevEUI
-      %th Description
-      %th Model
-      %th Vendor
-    %tbody
-      - @devices.each do |device|
-        = render partial: device
-- if @devices.empty?
-  .alert.alert-info
-    = t('.no_records')
+.wrapper.wrapper-content.animated.fadeInRight
+  .row
+    .col-lg-12
+      .ibox.float-e-margins
+        .ibox-title
+          %h5 Devices
+
+        .ibox-content
+
+          .table-responsive
+            %table.table.table-hover.table-striped
+              %thead
+                %th DevEUI
+                %th Description
+                %th Model
+                %th Vendor
+              %tbody
+                - @devices.each do |device|
+                  = render partial: device
+
+            - if @devices.empty?
+              .alert.alert-info
+                = t('.no_records')

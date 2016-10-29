@@ -1,4 +1,4 @@
 %tr
-  %td= project.projectId
-  %td= project.description
-  %td= link_to "Devices", project_devices_path(project.projectId)
+  %td= link_to project.projectId, project_devices_path(project.projectId)
+  %td= link_to project.description, project_devices_path(project.projectId)
+  %td= link_to fa_icon("plug"), project_devices_path(project.projectId)

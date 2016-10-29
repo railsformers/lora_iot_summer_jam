@@ -1,0 +1,4 @@
+- if displays = @messages.try(:first).try(:display)
+  - displays.each do |type, settings|
+    = send(type, chart_data(@messages_chart, settings))
+

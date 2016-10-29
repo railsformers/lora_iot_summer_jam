@@ -14,16 +14,20 @@ class Message < BaseREST
   end
 
   def sensor_class
-    "Sensors::#{device.model.downcase.capitalize}".safe_constantize if device
+    "Sensors::#{device.model.downcase.capitalize}".safe_constantize || Sensors::Base
   end
 
   def sensor
-    @sensor ||= sensor_class.new(message: self) if sensor_class
+    @sensor ||= sensor_class.new(message: self)
   end
 
   def device
     @device ||= Rails.cache.fetch("message/device/#{self.devEUI}", expires: 24.hour) do
       Project.all.map { |p| p.devices }.flatten.select{ |d| d.devEUI == self.devEUI }.first
     end
+  end
+
+  def created_at
+    DateTime.parse(self.createdAt).in_time_zone
   end
 end

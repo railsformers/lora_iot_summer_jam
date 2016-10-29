@@ -11,3 +11,5 @@
 //= require Chart.bundle
 //= require chartkick
 //= require_tree .
+
+Chartkick.configure({"language": "cs"});
