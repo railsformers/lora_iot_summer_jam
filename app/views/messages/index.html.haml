@@ -17,7 +17,7 @@
 
         .ibox-content
 
-          %table.table.table-striped.table-bordered.table-hover.dataTables-messages#example
+          %table.table.table-striped.table-bordered.table-hover#sensor_data
             %thead
               %th Created at
               - if @messages.first && @messages.first.attributes
@@ -34,7 +34,7 @@
 
   $(function() {
 
-      $('.dataTables-messages').DataTable({
+      $('#sensor_data').DataTable({
           processing: true,
           serverSide: true,
           ajax: function(data, callback, settings) {
@@ -64,8 +64,12 @@
             render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSZZ', 'DD. MM. YYYY HH:mm:ss')
           } ],
           fnDrawCallback: function(oSettings) {
-            new Chartkick.LineChart("chart-1", "#{chart_project_device_messages_path(settings: @displays.first.last)}" + "&limit=" + oSettings.oAjaxData.length + "&page=" + oSettings.oAjaxData.start/oSettings.oAjaxData.length, {});
+            new Chartkick.LineChart("chart-1", "#{chart_project_device_messages_path(settings: @displays.try(:first).try(:last))}" + "&limit=" + oSettings.oAjaxData.length + "&page=" + oSettings.oAjaxData.start/oSettings.oAjaxData.length, {discrete: true});
           },
+          dom: "<'row'<'col-sm-12'l>>" +
+          "<'row'<'col-sm-5'i><'col-sm-6'p>>" +
+          "<'row'<'col-sm-12'tr>>" +
+          "<'row'<'col-sm-5'i><'col-sm-7'p>>",
       });
 
   });

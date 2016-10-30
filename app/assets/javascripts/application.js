@@ -8,8 +8,7 @@
 //= require inspinia.js
 //= require jquery_ujs
 // require turbolinks
-//= require Chart.bundle
 //= require chartkick
 //= require_tree .
 
-Chartkick.configure({"language": "cs"});
+Chartkick.configure({ language: "cs" });

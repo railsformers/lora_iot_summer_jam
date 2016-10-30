@@ -29,7 +29,7 @@ class MessagesController < ApplicationController
     arr = []
 
     settings[:attributes].each do |a|
-      arr << { name: a.to_s.humanize + " " + attr_unit(data.first, a.to_s), data: msg.select{ |k, v| v.map{ |va| va.attributes.send(a) }.first != nil }.map { |k, v| [k.strftime("%d. %m. %Y %k:%M"), v.map{ |va| va.attributes.send(a) }.first ] } }
+      arr << { name: a.to_s.humanize + " " + attr_unit(data.first, a.to_s), data: msg.select{ |k, v| v.map{ |va| va.attributes.send(a) }.first != nil }.map { |k, v| [k.strftime("%d.%m.%Y %H:%M"), v.map{ |va| va.attributes.send(a) }.first ] }.to_h }
     end
 
     arr

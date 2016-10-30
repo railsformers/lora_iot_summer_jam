@@ -1,4 +1,4 @@
 - if displays = @messages.try(:first).try(:display)
   - displays.each do |type, settings|
     -# settings.inspect
-    = send(type, chart_project_device_messages_path(settings: settings, limit: @limit, page: @page))
+    = send(type, chart_project_device_messages_path(settings: settings, limit: @limit, page: @page), discrete: true)
