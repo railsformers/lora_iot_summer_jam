@@ -29,7 +29,7 @@ class MessagesController < ApplicationController
     arr = []
 
     settings[:attributes].each do |a|
-      arr << { name: a.to_s.humanize + " " + attr_unit(data.first, a.to_s), data: msg.select{ |k, v| v.map{ |va| va.attributes.send(a) }.first != nil }.map { |k, v| [k.strftime("%d.%m.%Y %H:%M"), v.map{ |va| va.attributes.send(a) }.first ] }.to_h }
+      arr << { name: a.to_s.humanize + attr_unit(data.first, a.to_s), data: msg.select{ |k, v| v.map{ |va| va.attributes.send(a) }.first != nil }.map { |k, v| [k.strftime("%d.%m.%Y %H:%M"), v.map{ |va| va.attributes.send(a) }.first ] }.to_h }
     end
 
     arr
@@ -39,6 +39,6 @@ class MessagesController < ApplicationController
     return nil unless message
 
     unit = message.attribute_unit(attribute)
-    "#{unit.blank? ? unit : "[" + unit + "]"}"
+    "#{unit.blank? ? unit : " [" + unit + "]"}"
   end
 end

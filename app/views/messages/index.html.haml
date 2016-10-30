@@ -64,7 +64,11 @@
             render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSZZ', 'DD. MM. YYYY HH:mm:ss')
           } ],
           fnDrawCallback: function(oSettings) {
-            new Chartkick.LineChart("chart-1", "#{chart_project_device_messages_path(settings: @displays.try(:first).try(:last))}" + "&limit=" + oSettings.oAjaxData.length + "&page=" + oSettings.oAjaxData.start/oSettings.oAjaxData.length, {discrete: true});
+            if (#{@displays.try(:first).try(:first) == :line_chart}) {
+              new Chartkick.LineChart("chart-1", "#{chart_project_device_messages_path(settings: @displays.try(:first).try(:last))}" + "&limit=" + oSettings.oAjaxData.length + "&page=" + oSettings.oAjaxData.start/oSettings.oAjaxData.length, {discrete: true});
+            }
+            if (#{@displays.try(:first).try(:first) == :map}) {
+            }
           },
           dom: "<'row'<'col-sm-12'l>>" +
           "<'row'<'col-sm-5'i><'col-sm-6'p>>" +

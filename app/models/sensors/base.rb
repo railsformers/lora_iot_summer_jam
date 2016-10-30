@@ -2,8 +2,19 @@ module Sensors
   class Base
     attr_reader :message, :value
 
-    @@attributes = []
-    @@display_as = {}
+    with_options instance_writer: false, instance_reader: false do |klasss|
+      klasss.class_attribute :_display_as_data
+      self._display_as_data ||= {}
+
+      klasss.class_attribute :_sensor_attributes_data
+      self._sensor_attributes_data ||= []
+    end
+
+    def self.inherited(base)
+      super
+      base._display_as_data = _display_as_data.dup
+      base._sensor_attributes_data = _sensor_attributes_data.dup
+    end
 
     class DefaultFormat < BinData::Record
       endian :little
@@ -31,23 +42,23 @@ module Sensors
     alias_method :values, :value
 
     def self.attributes(*attrs)
-      @@attributes += attrs
+      self._sensor_attributes_data += attrs
     end
 
     def self.display_as(type, attrs)
-      @@display_as[type] = attrs
+      self._display_as_data[type] = attrs
     end
 
     def attributes
       out = Hashie::Mash.new
 
-      @@attributes.uniq.each do |a|
+      self.class._sensor_attributes_data.uniq.each do |a|
         if respond_to?(a)
           out[a] = send(a)
         end
       end
 
-      if @@attributes.empty?
+      if self.class._sensor_attributes_data.empty?
         out[:not_implemented] = "Not Implemented Sensor Parser"
       end
 
@@ -55,7 +66,7 @@ module Sensors
     end
 
     def display
-      @@display_as
+      self.class._display_as_data
     end
 
     def attribute_units

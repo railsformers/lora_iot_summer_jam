@@ -1,6 +1,7 @@
 module Sensors
   class Arf8084ba < Sensors::Base
     attributes :temperature, :latitude, :longitude
+    display_as :map, group_by: :minute, attributes: [:temperature, :latitude, :longitude]
 
     def payloadHexa
       message.payloadHex.scan(/../).map { |x| x.hex.chr }.join
