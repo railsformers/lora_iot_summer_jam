@@ -28,8 +28,6 @@ gem 'groupdate'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'font-awesome-rails'
 gem 'active_model_serializers', '~> 0.10.0'
-gem 'jsonapi-parser', '~> 0.1.1.beta2'
-gem 'jsonapi', '~> 0.1.1.beta5'
 
 group :development, :test do
   gem 'byebug'
