@@ -22,7 +22,9 @@
               %th Created at
               - if @messages.first && @messages.first.attributes
                 - @messages.first.attributes.keys.each do |attribute|
-                  %th= attribute.humanize
+                  %th
+                    = attribute.humanize
+                    = attr_unit(@messages.first, attribute)
 
             %tbody
               -#   - @messages.each do |message|
@@ -51,7 +53,7 @@
                   });
               });
           },
-          aoColumns: #{ ([:created_at] + @messages.first.attributes.keys).map{ |a| { title: a.to_s.humanize.capitalize, data: a, orderable: true } }.to_json },
+          aoColumns: #{ ([:created_at] + @messages.first.attributes.keys).map{ |a| { data: a, orderable: true } }.to_json },
           pagingType: 'full_numbers',
           pageLength: 25,
           searching: false,
@@ -62,7 +64,7 @@
             render: $.fn.dataTable.render.moment('YYYY-MM-DDTHH:mm:ss.SSSZZ', 'DD. MM. YYYY HH:mm:ss')
           } ],
           fnDrawCallback: function(oSettings) {
-            new Chartkick.LineChart("chart-1", "#{chart_project_device_messages_path}" + "?settings%5Battributes%5D%5B%5D=temperature\u0026settings%5Battributes%5D%5B%5D=humidity\u0026settings%5Bgroup_by%5D=minute&limit=" + oSettings.oAjaxData.length + "&page=" + oSettings.oAjaxData.start/oSettings.oAjaxData.length, {});
+            new Chartkick.LineChart("chart-1", "#{chart_project_device_messages_path(settings: @displays.first.last)}" + "&limit=" + oSettings.oAjaxData.length + "&page=" + oSettings.oAjaxData.start/oSettings.oAjaxData.length, {});
           },
       });
 

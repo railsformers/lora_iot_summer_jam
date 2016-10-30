@@ -1,7 +1,7 @@
 class Message < BaseREST
   cache_expires 1.minute
 
-  delegate :attributes, :display, to: :sensor
+  delegate :attributes, :display, :attribute_unit, to: :sensor
 
   def data
     return "Parser not implemented" unless sensor_class

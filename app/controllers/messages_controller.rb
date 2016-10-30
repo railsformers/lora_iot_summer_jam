@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   respond_to :html, :json
+  helper_method :attr_unit
 
   def index
     limit = 200000
@@ -7,6 +8,7 @@ class MessagesController < ApplicationController
     @messages_array = Kaminari.paginate_array(@messages, total_count: limit).page(params[:page]).per(params[:limit].to_i)
     @device = @messages.try(:first).try(:device)
     @project = @device.try(:project)
+    @displays = @messages.try(:first).try(:display)
 
     respond_with @messages_array, root: :data, meta: { total_count: limit }
   end
@@ -27,9 +29,16 @@ class MessagesController < ApplicationController
     arr = []
 
     settings[:attributes].each do |a|
-      arr << { name: a.to_s.humanize, data: msg.select{ |k, v| v.map{ |va| va.attributes.send(a) }.first != nil }.map { |k, v| [k.strftime("%d. %m. %Y %k:%M"), v.map{ |va| va.attributes.send(a) }.first ] } }
+      arr << { name: a.to_s.humanize + " " + attr_unit(data.first, a.to_s), data: msg.select{ |k, v| v.map{ |va| va.attributes.send(a) }.first != nil }.map { |k, v| [k.strftime("%d. %m. %Y %k:%M"), v.map{ |va| va.attributes.send(a) }.first ] } }
     end
 
     arr
+  end
+
+  def attr_unit(message, attribute)
+    return nil unless message
+
+    unit = message.attribute_unit(attribute)
+    "#{unit.blank? ? unit : "[" + unit + "]"}"
   end
 end

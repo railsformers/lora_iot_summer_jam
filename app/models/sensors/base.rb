@@ -57,5 +57,13 @@ module Sensors
     def display
       @@display_as
     end
+
+    def attribute_units
+      {}
+    end
+
+    def attribute_unit(attribute)
+      attribute_units[attribute.to_sym] || ""
+    end
   end
 end

@@ -1,6 +1,6 @@
 module Sensors
-  class Desense < Base
-    attributes :temperature, :humidity, :battery_voltage
+  class Desense < DesenseBase
+    attributes :temperature, :humidity
     display_as :line_chart, group_by: :minute, attributes: [:temperature, :humidity]
 
     def payloadHexa
@@ -13,10 +13,6 @@ module Sensors
 
     def humidity
       @humidity ||= values.humidity / 1000.0
-    end
-
-    def battery_voltage
-      @battery_voltage ||= values.battery / 1000.0
     end
   end
 end
