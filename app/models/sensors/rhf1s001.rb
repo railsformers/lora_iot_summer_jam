@@ -36,5 +36,10 @@ module Sensors
     def battery_level
       (value.battery+150)*0.01
     end
+
+    def attribute_units
+      units = super
+      units.merge({ battery_level: "V" })
+    end
   end
 end

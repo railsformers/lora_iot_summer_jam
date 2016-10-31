@@ -18,5 +18,10 @@ module Sensors
     def battery_voltage
       @battery_voltage ||= (values.battery1 * 100) + values.battery2
     end
+
+    def attribute_units
+      units = super
+      units.merge({ battery_voltage: "mV" })
+    end
   end
 end

@@ -8,7 +8,7 @@ describe Sensors::Desenselight do
   describe ".illuminance" do
     subject { sensor.illuminance }
 
-    it { expect(subject).to eq 7.883 }
+    it { expect(subject).to eq 7883 }
   end
 
   describe ".battery_voltage" do

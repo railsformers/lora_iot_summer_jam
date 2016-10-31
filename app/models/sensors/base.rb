@@ -70,7 +70,7 @@ module Sensors
     end
 
     def attribute_units
-      {}
+      { humidity: "%", temperature: "°C" }
     end
 
     def attribute_unit(attribute)

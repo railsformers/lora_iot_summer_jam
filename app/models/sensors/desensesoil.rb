@@ -6,5 +6,10 @@ module Sensors
     def soil_moisture
       @soil_moisture ||= (values.soil_moisture > 2400 ? 100 : (values.soil_moisture/2400.0)*100.0).to_i
     end
+
+    def attribute_units
+      units = super
+      units.merge({ soil_moisture: "%" })
+    end
   end
 end
