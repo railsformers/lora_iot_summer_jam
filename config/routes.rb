@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   resources :projects, only: [:index] do
     resources :devices, only: [:index] do
       resources :messages, only: [:index], concerns: :paginatable do
-        get :chart, on: :collection
+        get :chart, :map_markers, on: :collection
       end
     end
   end

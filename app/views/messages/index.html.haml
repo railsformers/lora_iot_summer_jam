@@ -68,6 +68,14 @@
               new Chartkick.LineChart("chart-1", "#{chart_project_device_messages_path(settings: @displays.try(:first).try(:last))}" + "&limit=" + oSettings.oAjaxData.length + "&page=" + oSettings.oAjaxData.start/oSettings.oAjaxData.length, {discrete: true});
             }
             if (#{@displays.try(:first).try(:first) == :map}) {
+              if (typeof GMap.map === 'undefined') {
+                GMap.map = Gmaps.build('Google');
+                GMap.map.buildMap({ provider: {}, internal: { id: 'map' }}, function() {
+                  GMap.getMarkers("#{ map_markers_project_device_messages_path }", oSettings);
+                });
+              } else {
+                GMap.getMarkers("#{ map_markers_project_device_messages_path }", oSettings);
+              }
             }
           },
           dom: "<'row'<'col-sm-12'l>>" +

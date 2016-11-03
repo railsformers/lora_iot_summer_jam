@@ -28,6 +28,7 @@ gem 'groupdate'
 gem 'bootstrap-sass', '~> 3.3.7'
 gem 'font-awesome-rails'
 gem 'active_model_serializers', '~> 0.10.0'
+gem 'gmaps4rails'
 
 group :development, :test do
   gem 'byebug'

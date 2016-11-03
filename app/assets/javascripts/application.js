@@ -1,3 +1,4 @@
+//= require underscore
 //= require jquery/jquery-2.1.1.js
 //= require tether
 //= require bootstrap-sprockets
@@ -9,6 +10,7 @@
 //= require jquery_ujs
 // require turbolinks
 //= require chartkick
+//= require gmaps/google
 //= require_tree .
 
 Chartkick.configure({ language: "cs" });

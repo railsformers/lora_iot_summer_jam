@@ -22,6 +22,16 @@ class MessagesController < ApplicationController
     render json: chart_data(@messages_chart, params[:settings])
   end
 
+  def map_markers
+    @limit = params[:limit].to_i
+    @limit = 25 if @limit.zero?
+    @offset = params[:page].to_i * @limit
+    @messages = Message.limit(@limit).offset(@offset).get(params[:device_id])
+    @messages = @messages.select{ |m| !(m.try(:attributes).try(:latitude).try(:zero?) || m.try(:attributes).try(:longitude).try(:zero?)) }
+
+    render json: ActiveModelSerializers::SerializableResource.new(@messages, each_serializer: MapMarkerSerializer, root: 'data').to_json
+  end
+
   private
 
   def chart_data(data, settings)
