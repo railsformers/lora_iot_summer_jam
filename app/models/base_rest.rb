@@ -2,10 +2,18 @@ class BaseREST < ::Hashie::Mash
   include Hashie::Extensions::Mash::SafeAssignment
   include ActiveModel::Conversion
 
+  with_options instance_writer: false, instance_reader: false do |klasss|
+    klasss.class_attribute :_cache_expires_data
+    self._cache_expires_data = 1.hour
+  end
+
   class << self
     attr_accessor :id, :response, :data
 
-    @@cache_expires = 1.hour
+    def inherited(base)
+      super
+      base._cache_expires_data = _cache_expires_data.dup
+    end
 
     def token
       ""
@@ -75,7 +83,7 @@ class BaseREST < ::Hashie::Mash
     end
 
     def print(url)
-      puts "GET" + ( Rails.cache.exist?(cache_key([url, params])) ? " (CACHE " + @@cache_expires.to_i.to_s + "s)" : "" ) + ": #{url}"
+      puts "GET" + ( Rails.cache.exist?(cache_key([url, params])) ? " (CACHE " + cache_expiration.to_i.to_s + "s)" : "" ) + ": #{url}"
     end
 
     def all
@@ -131,7 +139,7 @@ class BaseREST < ::Hashie::Mash
     end
 
     def cache(url, &block)
-      Rails.cache.fetch(cache_key([url, params]), expires: @@cache_expires) do
+      Rails.cache.fetch(cache_key([url, params]), expires: cache_expiration) do
         block.call
       end
     end
@@ -141,7 +149,11 @@ class BaseREST < ::Hashie::Mash
     end
 
     def cache_expires(expiration_time)
-      @@cache_expires = expiration_time
+      self._cache_expires_data = expiration_time
+    end
+
+    def cache_expiration
+      _cache_expires_data
     end
   end
 end
