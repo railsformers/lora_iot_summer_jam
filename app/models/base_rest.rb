@@ -16,11 +16,11 @@ class BaseREST < ::Hashie::Mash
     end
 
     def token
-      ""
+      APP_CONFIG[:api_token]
     end
 
     def base_url
-      "https://api.pripoj.me"
+      APP_CONFIG[:api_base_url]
     end
 
     def singular_name

@@ -1,0 +1,15 @@
+defaults: &defaults
+  api_token:
+  api_base_url: https://api.pripoj.me
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
+
+staging:
+  <<: *defaults

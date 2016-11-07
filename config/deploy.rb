@@ -35,6 +35,7 @@ set :domain, rails_env!.start_with?('staging') ? 'staging' : 'lora.railsformers.
 
 set :shared_paths, %w(
   config/database.yml
+  config/application.yml
   log
   public/uploads
   tmp

@@ -36,6 +36,12 @@ bin/bundle exec rake db:create
 bin/bundle exec rake db:migrate
 ```
 
+Application config:
+```
+cp config/application.yml.example config/application.yml
+Edit the file `config/application.yml` to suit your needs
+```
+
 ## Running an application in developer mode
 ```
 bin/bundle exec rails s
