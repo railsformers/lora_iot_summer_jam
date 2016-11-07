@@ -1,24 +1,52 @@
-# README
+# IoT Summer Jam
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Load and processing of data from `api.pripoj.me`.
 
-Things you may want to cover:
+<!-- ## Run from docker
+```
+docker-compose up
+```
+Then type `http://localhost:3000` to your browser. -->
 
-* Ruby version
+## System dependency
 
-* System dependencies
+For installation and startup you need to have installed the following technologies:
 
-* Configuration
+```
+Linux distribution
+Ruby 2.1 and later - https://www.ruby-lang.org/en/downloads/
+nodejs - https://nodejs.org/en/
+```
 
-* Database creation
+## Installation
 
-* Database initialization
+Install all dependencies is done through the following commands:
 
-* How to run the test suite
+```
+bin/bundle install
+```
 
-* Services (job queues, cache servers, search engines, etc.)
+Database creation and initialization scheme:
+```
+sudo -u postgres -- createuser -d lora_api -P
+cp config/database.yml.sample config/database.yml
+Edit the file `config/database.yml` to suit your needs
 
-* Deployment instructions
+bin/bundle exec rake db:create
+bin/bundle exec rake db:migrate
+```
 
-* ...
+## Running an application in developer mode
+```
+bin/bundle exec rails s
+```
+
+After you run the previous command, visit the web presentation here:
+```
+http://localhost:3000
+```
+
+## Running tests
+```
+bin/bundle exec rspec
+```

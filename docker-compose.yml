@@ -1,6 +1,6 @@
 version: "2"
 services:
-  portal:
+  lora:
     container_name: lora
     stdin_open: true
     tty: true
